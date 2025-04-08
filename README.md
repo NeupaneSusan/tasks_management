@@ -1,6 +1,6 @@
 # ✅ Task Management App in Flutter
 
-A clean and simple **task management app** built using **Flutter**, designed to help users manage tasks efficiently with real-time updates and intuitive swipe gestures. The app uses **BLOC** for state management.
+A clean and simple **task management app** built using **Flutter**, designed to help users manage tasks efficiently with real-time updates and intuitive swipe gestures. The app uses **PROVIDER** for state management.
 
 ## 🧩 Features
 
