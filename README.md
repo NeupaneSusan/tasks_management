@@ -24,8 +24,8 @@ A clean and simple **task management app** built using **Flutter**, designed to 
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/NeupaneSusan/task_mgt
-    cd card_guessing_game
+    git clone https://github.com/NeupaneSusan/tasks_management
+    cd tasks_management
     ```
 
 2. **Install dependencies:**
