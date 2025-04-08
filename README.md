@@ -7,11 +7,11 @@ A clean and simple **task management app** built using **Flutter**, designed to 
 - ⚡ **Realtime Updates**  
   All tasks update instantly across the app without needing a refresh.
 
-- ➡️ **Swipe Right to Left: Change Task Status**  
-  Swipe a task from **right to left** to toggle its status (e.g., from pending to completed).
-
-- ⬅️ **Swipe Left to Right: Delete Task**  
+- ➡️ **Swipe Right to Left: Delete Task**  
   Swipe a task from **left to right** to instantly delete it from the list.
+ 
+- ⬅️ **Swipe Left to Right: Change Task Status**  
+  Swipe a task from **right to left** to toggle its status (e.g., from pending to running).
 
 - 📱 **Responsive UI**  
   Designed to adapt to various screen sizes.
