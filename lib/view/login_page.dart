@@ -24,9 +24,7 @@ class LoginPage extends StatelessWidget {
             SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                if (!context.read<AuthsProvider>().isLoading) {
-                  context.read<AuthsProvider>().googleLogin();
-                }
+                context.read<AuthsProvider>().googleLogin();
               },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:taskmgt/core/constant/app_color.dart';
 import 'package:taskmgt/core/constant/text_style.dart';
 import 'package:taskmgt/core/utils/extesion.dart';
+import 'package:taskmgt/core/utils/get_date.dart';
 import 'package:taskmgt/core/utils/routes.dart';
 import 'package:taskmgt/model/task_model.dart';
 import 'package:taskmgt/view/create_task.dart';
@@ -39,8 +40,11 @@ class CardPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       spacing: 5,
                       children: [
-                        const Icon(Icons.access_time, size: 22, color: Colors.white),
-                        Text('${data.startTime} - ${data.endTime} ${data.date}', style: AppTextStyle.font14W6.copyWith(color: AppColor.whiteColor)),
+                        const Icon(Icons.access_time, size: 18, color: Colors.white),
+                        Text(
+                          '${data.startTime} - ${data.endTime}, ${DateFormatter().formattedDate(data.date)}',
+                          style: AppTextStyle.font12W6.copyWith(color: AppColor.whiteColor),
+                        ),
                       ],
                     ),
                     Text(data.note, overflow: TextOverflow.ellipsis, maxLines: 2, style: AppTextStyle.font16W6.copyWith(color: AppColor.whiteColor)),

@@ -13,7 +13,7 @@ class CommonButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 50,
+        height: 45,
         width: 100,
         alignment: Alignment.center,
         decoration: BoxDecoration(color: AppColor.primaryColor, borderRadius: AppBoardRadius.borderRadius20, boxShadow: kElevationToShadow[1]),

@@ -15,6 +15,12 @@ class DateFormatter {
     return '${_monthNames[now.month - 1]} $paddedDay, ${now.year}';
   }
 
+  String formattedDate(String dateString) {
+    DateTime date = DateTime.parse(dateString);
+    final paddedDay = date.day.toString().padLeft(2, '0');
+    return '${_monthNames[date.month - 1]} $paddedDay, ${date.year}';
+  }
+
   String fullDate(DateTime date) {
     String day = date.day < 10 ? "0${date.day}" : date.day.toString();
     String month = date.month < 10 ? "0${date.month}" : date.month.toString();

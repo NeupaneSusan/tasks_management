@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppTextStyle {
+  static TextStyle font12W6 = TextStyle(fontSize: 12, fontWeight: FontWeight.w600);
+
   static TextStyle font14 = TextStyle(fontSize: 14, fontWeight: FontWeight.normal);
   static TextStyle font14W5 = TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
   static TextStyle font14W6 = TextStyle(fontSize: 14, fontWeight: FontWeight.w600);
