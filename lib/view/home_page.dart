@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:taskmgt/core/constant/app_color.dart';
 import 'package:taskmgt/core/constant/board_radius.dart';
 import 'package:taskmgt/core/constant/text_style.dart';
+import 'package:taskmgt/core/utils/custom_alert.dart';
 import 'package:taskmgt/core/utils/custom_dialog.dart';
 import 'package:taskmgt/core/utils/get_date.dart';
 import 'package:taskmgt/core/utils/routes.dart';
@@ -24,6 +25,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ValueNotifier<bool> _notifier = ValueNotifier(true);
+  final userId = FirebaseAuth.instance.currentUser!.uid;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +84,9 @@ class _HomePageState extends State<HomePage> {
                         List<TaskModel> taskList = [];
                         data.forEach((key, value) {
                           final task = TaskModel.fromJson(Map<String, dynamic>.from(value));
-                          taskList.add(task);
+                          if (task.createdBy == userId || task.assignedTo == userId) {
+                            taskList.add(task);
+                          }
                         });
                         return Column(
                           children: [
@@ -116,7 +120,11 @@ class _HomePageState extends State<HomePage> {
                                         context.read<TaskProvider>().updateTask(taskList[i].changeStatus(), isPop: false);
                                       }
                                       if (direction == DismissDirection.startToEnd) {
-                                        context.read<TaskProvider>().deleteTask(taskList[i]);
+                                        if (userId == taskList[i].createdBy) {
+                                          context.read<TaskProvider>().deleteTask(taskList[i]);
+                                        } else {
+                                          CustomAlert.show(message: "You don't permission to delete");
+                                        }
                                       }
 
                                       return false;

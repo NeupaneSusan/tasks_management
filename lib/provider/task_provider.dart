@@ -59,6 +59,5 @@ class TaskProvider extends ChangeNotifier {
 }
 
 Query getTask() {
-  final userId = FirebaseAuth.instance.currentUser!.uid;
-  return FirebaseDatabase.instance.ref().child('Task').orderByChild('userId').equalTo(userId);
+  return FirebaseDatabase.instance.ref().child('Task');
 }

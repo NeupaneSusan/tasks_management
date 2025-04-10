@@ -14,8 +14,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   GoogleSignIn googleSignIn = GoogleSignIn();
-  AuthService authService = AuthService(googleSignIn);
   DatabaseService dataBaseService = DatabaseService();
+  AuthService authService = AuthService(googleSignIn, dataBaseService);
+
   runApp(
     MultiProvider(
       providers: [

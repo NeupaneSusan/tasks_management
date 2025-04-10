@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskmgt/core/constant/input_decoration.dart';
 import 'package:taskmgt/core/constant/text_style.dart';
 
 class CommonTextField extends StatelessWidget {
@@ -35,12 +36,7 @@ class CommonTextField extends StatelessWidget {
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 19),
           controller: textEditingController,
           cursorHeight: 20,
-          decoration: InputDecoration(
-            suffixIcon: suffixIcon,
-            hintText: hintText,
-            contentPadding: const EdgeInsets.all(8),
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-          ),
+          decoration: inputDecoration(hintText: hintText, suffixIcon: suffixIcon),
         ),
         SizedBox(height: 8),
       ],

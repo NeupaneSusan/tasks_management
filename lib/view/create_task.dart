@@ -2,10 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taskmgt/core/constant/app_color.dart';
+import 'package:taskmgt/core/constant/input_decoration.dart';
 import 'package:taskmgt/core/constant/text_style.dart';
 import 'package:taskmgt/core/utils/get_date.dart';
 import 'package:taskmgt/model/status.dart';
 import 'package:taskmgt/model/task_model.dart';
+import 'package:taskmgt/model/user_model.dart';
+import 'package:taskmgt/provider/auth_provider.dart';
 import 'package:taskmgt/provider/task_provider.dart';
 import 'package:taskmgt/widget/button.dart';
 import 'package:taskmgt/widget/common_text_field.dart';
@@ -30,9 +33,14 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
 
   ValueNotifier<Status> _selectedStatus = ValueNotifier(Status.pending);
 
+  final ValueNotifier<UserModel?> _userSelected = ValueNotifier(null);
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AuthsProvider>().getAllUser();
+    });
     if (widget.task != null) {
       _titleEditingController.text = widget.task!.title;
       _noteEditingController.text = widget.task!.note;
@@ -157,7 +165,40 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                 ),
               ],
             ),
-
+            Column(
+              spacing: 8.0,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Assign To', style: AppTextStyle.font15W5),
+                Consumer<AuthsProvider>(
+                  builder: (context, data, child) {
+                    if (data.userList.isNotEmpty && widget.task != null) {
+                      final userModel = data.userList.firstWhere((e) => e.userId == widget.task!.assignedTo);
+                      _userSelected.value = userModel;
+                    }
+                    return ValueListenableBuilder(
+                      valueListenable: _userSelected,
+                      builder: (context, value, child) {
+                        return DropdownButtonFormField<UserModel>(
+                          hint: Text('Select a user'),
+                          value: value,
+                          decoration: inputDecoration(hintText: 'Select a user'),
+                          onChanged: (UserModel? newUser) {
+                            _userSelected.value = newUser;
+                          },
+                          items:
+                              data.userList.map((user) {
+                                return DropdownMenuItem<UserModel>(value: user, child: Text(user.fullName));
+                              }).toList(),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
             ValueListenableBuilder<Status>(
               valueListenable: _selectedStatus,
               builder: (context, data, child) {
@@ -197,7 +238,8 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
                                 date: _dateEditingController.text,
                                 startTime: _startTimeEditingController.text,
                                 endTime: _endTimeEditingController.text,
-                                userId: userId,
+                                createdBy: userId,
+                                assignedTo: _userSelected.value?.userId ?? userId,
                                 status: _selectedStatus.value,
                               );
                               if (widget.task != null) {

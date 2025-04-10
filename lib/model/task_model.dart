@@ -7,7 +7,8 @@ class TaskModel {
   final String date;
   final String startTime;
   final String endTime;
-  final String userId;
+  final String createdBy;
+  final String assignedTo;
   final Status status;
 
   TaskModel({
@@ -17,11 +18,22 @@ class TaskModel {
     required this.date,
     required this.startTime,
     required this.endTime,
-    required this.userId,
+    required this.createdBy,
+    required this.assignedTo,
     required this.status,
   });
 
-  TaskModel copyWith({String? id, String? title, String? note, String? date, String? startTime, String? endTime, String? userId, Status? status}) {
+  TaskModel copyWith({
+    String? id,
+    String? title,
+    String? note,
+    String? date,
+    String? startTime,
+    String? endTime,
+    String? createdBy,
+    String? assignedTo,
+    Status? status,
+  }) {
     return TaskModel(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -29,7 +41,8 @@ class TaskModel {
       date: date ?? this.date,
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
-      userId: userId ?? this.userId,
+      createdBy: createdBy ?? this.createdBy,
+      assignedTo: assignedTo ?? this.assignedTo,
       status: status ?? this.status,
     );
   }
@@ -42,7 +55,8 @@ class TaskModel {
       date: json['date'],
       startTime: json['startTime'],
       endTime: json['endTime'],
-      userId: json['userId'],
+      createdBy: json['createdBy'],
+      assignedTo: json['assignedTo'],
       status: Status.values.firstWhere(
         (e) => e.name == json['status'],
         orElse: () => Status.pending, // default fallback
@@ -58,7 +72,8 @@ class TaskModel {
       'date': date,
       'startTime': startTime,
       'endTime': endTime,
-      'userId': userId,
+      'createdBy': createdBy,
+      'assignedTo': assignedTo,
       'status': status.name,
     };
   }
